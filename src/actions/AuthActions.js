@@ -1,75 +1,78 @@
-import firebase from 'firebase';
-import { Actions } from 'react-native-router-flux';
-import b64 from 'base-64';
+import firebase from 'firebase'
+import { Actions } from 'react-native-router-flux'
+import b64 from 'base-64'
+import { CHANGE_MAIL, CHANGE_NAME, CHANGE_PASSWORD, USER_REGISTER_SUCCESS, USER_REGISTER_ERROR, USER_LOGIN_SUCESS, USER_LOGIN_ERROR, LOGIN_IN_PROCESS, REGISTER_IN_PROCESS } from './Types'
 
 export const changeMail = (text) => {
-    return {
-        type: 'change_mail',
-        payload: text
-    }
+  return {
+    type: CHANGE_MAIL,
+    payload: text
+  }
 }
 
 export const changePassword = (text) => {
-    return {
-        type: 'change_password',
-        payload: text
-    }
+  return {
+    type: CHANGE_PASSWORD,
+    payload: text
+  }
 }
 
 export const changeName = (text) => {
-    return {
-        type: 'change_name',
-        payload: text
-    }
+  return {
+    type: CHANGE_NAME,
+    payload: text
+  }
 }
 
 export const userRegister = ({ nome, email, senha }) => {
-    return dispatch => {
-        firebase.auth()
+  return dispatch => {
+    dispatch({ type: REGISTER_IN_PROCESS })
+    firebase.auth()
             .createUserWithEmailAndPassword(email, senha)
             .then(user => {
-                let emailB64 = b64.encode(email);
+              let emailB64 = b64.encode(email)
 
-                firebase.database().ref(`/contatos/ ${emailB64}`)
+              firebase.database().ref(`/contatos/ ${emailB64}`)
                     .push({ nome })
                     .then(value => userRegisterSucess(dispatch))
             })
-            .catch(erro => userRegisterError(erro, dispatch));
-    }
+            .catch(erro => userRegisterError(erro, dispatch))
+  }
 }
 
 const userRegisterSucess = (dispatch) => {
-    dispatch({ type: 'user_register_sucess' });
+  dispatch({ type: USER_REGISTER_SUCCESS })
 
-    Actions.welcome();
+  Actions.welcome()
 }
 
 const userRegisterError = (erro, dispatch) => {
-    dispatch({ type: 'user_register_error', payload: erro.message });
+  dispatch({ type: USER_REGISTER_ERROR, payload: erro.message })
 }
 
 export const authUser = ({ email, senha }) => {
-
-    return dispatch => {
-        firebase.auth().signInWithEmailAndPassword(email, senha)
+  return dispatch => {
+    dispatch({ type: LOGIN_IN_PROCESS })
+    firebase.auth().signInWithEmailAndPassword(email, senha)
             .then(value => userLoginSucess(dispatch))
-            .catch(erro => userLoginError(erro, dispatch));
-    }
+            .catch(erro => userLoginError(erro, dispatch))
+  }
 }
 
 const userLoginSucess = (dispatch) => {
-    dispatch(
-        {
-            type: 'user_login_sucess'
-        }
-    );
+  dispatch(
+    {
+      type: USER_LOGIN_SUCESS
+    }
+    )
+  Actions.main()
 }
 
 const userLoginError = (erro, dispatch) => {
-    dispatch(
-        {
-            type: 'user_login_error',
-            payload: erro.message
-        }
-    );
+  dispatch(
+    {
+      type: USER_LOGIN_ERROR,
+      payload: erro.message
+    }
+    )
 }

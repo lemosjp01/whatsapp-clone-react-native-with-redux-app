@@ -1,19 +1,32 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput, Button, TouchableHighlight, ImageBackground } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-import { connect } from 'react-redux';
-import { changeMail, changePassword, authUser, loginError } from '../actions/AuthActions';
+import React, { Component } from 'react'
+import { View, Text, TextInput, Button, TouchableHighlight, ImageBackground, ActivityIndicator } from 'react-native'
+import { Actions } from 'react-native-router-flux'
+import { connect } from 'react-redux'
+import { changeMail, changePassword, authUser } from '../actions/AuthActions'
 
 class formLogin extends Component {
+  _authUser () {
+    const { email, senha } = this.props
 
-    _authUser() {
-        const { email, senha } = this.props;
-
-        this.props.authUser({ email, senha });
+    this.props.authUser({ email, senha })
+  }
+  renderBtnAcess () {
+    if (this.props.loading_login) {
+      return (
+            <ActivityIndicator size='large' />
+      )
     }
+    return (
+        <Button
+        title='Acessar'
+        color='#115e54'
+        onPress={() => this._authUser()}
+    />
+    )
+  }
 
-    render() {
-        return (
+  render () {
+    return (
             <ImageBackground
                 style={{ flex: 1, width: null }}
                 source={require('../imgs/bg.png')}
@@ -67,26 +80,21 @@ class formLogin extends Component {
                     <View
                         style={{ flex: 2 }}
                     >
-                        <Button
-                            title='Acessar'
-                            color='#115e54'
-                            onPress={() => this._authUser()}
-                        />
+                        {this.renderBtnAcess()}
                     </View>
                 </View>
             </ImageBackground>
-        );
-
-    }
-
+    )
+  }
 }
 
 const mapStateToProps = state => (
-    {
-        email: state.AuthReducer.email,
-        senha: state.AuthReducer.senha,
-        loginError: state.AuthReducer.loginError
-    }
-);
+  {
+    email: state.AuthReducer.email,
+    senha: state.AuthReducer.senha,
+    loginError: state.AuthReducer.loginError,
+    loading_login: state.AuthReducer.loading_login
+  }
+)
 
-export default connect(mapStateToProps, { changeMail, changePassword, authUser })(formLogin);
+export default connect(mapStateToProps, { changeMail, changePassword, authUser })(formLogin)

@@ -1,29 +1,34 @@
+import { CHANGE_MAIL, CHANGE_NAME, CHANGE_PASSWORD, USER_REGISTER_SUCCESS, USER_REGISTER_ERROR, LOGIN_IN_PROCESS, USER_LOGIN_ERROR, REGISTER_IN_PROCESS } from '../actions/Types'
+
 const INITIAL_STATE = {
-    nome: '',
-    email: '',
-    senha: '',
-    registerError: '',
-    loginError: ''
+  nome: '',
+  email: '',
+  senha: '',
+  registerError: '',
+  loginError: '',
+  loading_login: false,
+  loading_register: false
 }
 
 export default (state = INITIAL_STATE, action) => {
-    if (action.type == 'change_name') {
-        return { ...state, nome: action.payload }
-    }
-    if (action.type == 'change_mail') {
-        return { ...state, email: action.payload }
-    }
-    if (action.type == 'change_password') {
-        return { ...state, senha: action.payload }
-    }
-    if (action.type == 'user_register_error') {
-        return { ...state, registerError: action.payload }
-    }
-    if (action.type == 'user_register_sucess') {
-        return { ...state, nome: '', senha: '' }
-    }
-    if (action.type == 'user_login_error') {
-        return { ...state, loginError: action.payload }
-    }
-    return state;
+  switch (action.type) {
+    case CHANGE_NAME:
+      return { ...state, nome: action.payload }
+    case CHANGE_MAIL:
+      return { ...state, email: action.payload }
+    case CHANGE_PASSWORD:
+      return { ...state, senha: action.payload }
+    case USER_REGISTER_ERROR:
+      return { ...state, registerError: action.payload, loading_register: false }
+    case USER_REGISTER_SUCCESS:
+      return { ...state, nome: '', senha: '', loading_register: false }
+    case USER_LOGIN_ERROR:
+      return { ...state, loginError: action.payload, loading_login: false }
+    case LOGIN_IN_PROCESS:
+      return { ...state, loading_login: true }
+    case REGISTER_IN_PROCESS:
+      return { ...state, loading_register: true }
+    default:
+      return state
+  }
 }
