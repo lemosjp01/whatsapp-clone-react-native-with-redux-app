@@ -1,10 +1,43 @@
-import React from 'react'
-import { View, Text } from 'react-native'
+import * as React from 'react'
+import { View, StyleSheet, Dimensions } from 'react-native'
+import { TabView, SceneMap } from 'react-native-tab-view'
+import TabBarMenu from './TabBarMenu'
+import Chats from './Chats'
+import Contacts from './Contacts'
 
-const Main = props => (
-    <View style={{ marginTop: 100 }} >
-        <Text>Main Component</Text>
-    </View>
-)
+const styles = StyleSheet.create({
+    container: {
+        flex: 1
+    }
+})
+ 
+export default class Main extends React.Component {
+  state = {
+    index: 0,
+    routes: [
+      { key: '1', title: 'Conversas' },
+      { key: '2', title: 'Contatos' }
+    ]
+  }
 
-export default Main
+  _handleChangeTab = index => this.setState({index})
+
+  _renderHeader = props => <TabBarMenu {...props} />
+
+  _renderScene = SceneMap({
+    '1': Chats,
+    '2': Contacts
+  })
+
+  render () {
+    return (
+      <TabView
+        navigationState={this.state}
+        renderTabBar={this._renderHeader}
+        renderScene={this._renderScene}
+        onIndexChange={this._handleChangeTab}
+        initialLayout={{ width: Dimensions.get('window').width, height: 30 }}
+      />
+    )
+  }
+}

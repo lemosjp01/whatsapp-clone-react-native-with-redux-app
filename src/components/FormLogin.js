@@ -69,6 +69,7 @@ class formLogin extends Component {
                         </Text>
                         <TouchableHighlight
                             onPress={() => Actions.formRegister()}
+                            underlayColor="#114d44"
                         >
                             <Text
                                 style={{ fontSize: 20, color: '#fff' }}
