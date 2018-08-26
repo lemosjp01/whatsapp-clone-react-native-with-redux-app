@@ -32,7 +32,7 @@ export const userRegister = ({ nome, email, senha }) => {
             .then(user => {
               let emailB64 = b64.encode(email)
 
-              firebase.database().ref(`/contatos/ ${emailB64}`)
+              firebase.database().ref(`/contatos/${emailB64}`)
                     .push({ nome })
                     .then(value => userRegisterSucess(dispatch))
             })
@@ -54,8 +54,8 @@ export const authUser = ({ email, senha }) => {
   return dispatch => {
     dispatch({ type: LOGIN_IN_PROCESS })
     firebase.auth().signInWithEmailAndPassword(email, senha)
-            .then(value => userLoginSucess(dispatch))
-            .catch(erro => userLoginError(erro, dispatch))
+      .then(value => userLoginSucess(dispatch))
+      .catch(erro => userLoginError(erro, dispatch))
   }
 }
 
@@ -64,7 +64,7 @@ const userLoginSucess = (dispatch) => {
     {
       type: USER_LOGIN_SUCESS
     }
-    )
+  )
   Actions.main()
 }
 
@@ -74,5 +74,5 @@ const userLoginError = (erro, dispatch) => {
       type: USER_LOGIN_ERROR,
       payload: erro.message
     }
-    )
+  )
 }
