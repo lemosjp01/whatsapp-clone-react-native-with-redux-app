@@ -48,14 +48,14 @@ class formRegister extends Component {
               placeholderTextColor="#fff"
               placeholder="Nome"
               style={{ fontSize: 20, height: 45 }}
-              onChangeText={text => this.props.changeName(text)}
+              onChangeText={texto => this.props.changeName(texto)}
             />
             <TextInput
               value={this.props.email}
               placeholderTextColor="#fff"
               placeholder="E-mail"
               style={{ fontSize: 20, height: 45 }}
-              onChangeText={text => this.props.changeMail(text)}
+              onChangeText={texto => this.props.changeMail(texto)}
             />
             <TextInput
               secureTextEntry
@@ -63,7 +63,7 @@ class formRegister extends Component {
               placeholderTextColor="#fff"
               placeholder="Senha"
               style={{ fontSize: 20, height: 45 }}
-              onChangeText={text => this.props.changePassword(text)}
+              onChangeText={texto => this.props.changePassword(texto)}
             />
             <Text style={{ color: '#ff0000', fontSize: 18 }}>
               {this.props.registerError}

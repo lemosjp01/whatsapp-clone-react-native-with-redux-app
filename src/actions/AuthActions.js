@@ -3,24 +3,24 @@ import { Actions } from 'react-native-router-flux'
 import b64 from 'base-64'
 import { CHANGE_MAIL, CHANGE_NAME, CHANGE_PASSWORD, USER_REGISTER_SUCCESS, USER_REGISTER_ERROR, USER_LOGIN_SUCESS, USER_LOGIN_ERROR, LOGIN_IN_PROCESS, REGISTER_IN_PROCESS } from './Types'
 
-export const changeMail = (text) => {
+export const changeMail = (texto) => {
   return {
     type: CHANGE_MAIL,
-    payload: text
+    payload: texto
   }
 }
 
-export const changePassword = (text) => {
+export const changePassword = (texto) => {
   return {
     type: CHANGE_PASSWORD,
-    payload: text
+    payload: texto
   }
 }
 
-export const changeName = (text) => {
+export const changeName = (texto) => {
   return {
     type: CHANGE_NAME,
-    payload: text
+    payload: texto
   }
 }
 
@@ -47,7 +47,7 @@ const userRegisterSucess = (dispatch) => {
 }
 
 const userRegisterError = (erro, dispatch) => {
-  dispatch({ type: USER_REGISTER_ERROR, payload: erro.message })
+  dispatch({ type: USER_REGISTER_ERROR, payload: erro.mensagem })
 }
 
 export const authUser = ({ email, senha }) => {
@@ -72,7 +72,7 @@ const userLoginError = (erro, dispatch) => {
   dispatch(
     {
       type: USER_LOGIN_ERROR,
-      payload: erro.message
+      payload: erro.mensagem
     }
   )
 }

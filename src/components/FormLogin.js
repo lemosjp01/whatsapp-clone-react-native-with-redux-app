@@ -51,7 +51,7 @@ class formLogin extends Component {
                             style={{ fontSize: 20, height: 45 }}
                             placeholderTextColor='#fff'
                             placeholder='E-mail'
-                            onChangeText={text => this.props.changeMail(text)}
+                            onChangeText={texto => this.props.changeMail(texto)}
                         />
                         <TextInput
                             secureTextEntry
@@ -60,7 +60,7 @@ class formLogin extends Component {
                             placeholderTextColor='#fff'
                             placeholderTextColor='#fff'
                             placeholder='Senha'
-                            onChangeText={text => this.props.changePassword(text)}
+                            onChangeText={texto => this.props.changePassword(texto)}
                         />
                         <Text
                             style={{ color: '#ff0000', fontSize: 18 }}

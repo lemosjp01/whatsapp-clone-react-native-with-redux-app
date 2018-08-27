@@ -12,7 +12,7 @@ class AddContact extends Component {
             <TextInput
               placeholder="E-mail"
               style={{ fontSize: 20, height: 45 }}
-              onChangeText={text => this.props.changeEmailAddContact(text)}
+              onChangeText={texto => this.props.changeEmailAddContact(texto)}
               value={this.props.add_email_contact}
             />
           </View>
