@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import b64 from 'base-64'
 import _ from 'lodash'
-import { CHANGE_EMAIL_ADD_CONTACT, ADD_CONTACT_ERROR, ADD_CONTACT_SUCESS, USER_CONTACT_LIST, CHANGE_MESSAGE, USER_CHAT_LIST } from './Types'
+import { CHANGE_EMAIL_ADD_CONTACT, ADD_CONTACT_ERROR, ADD_CONTACT_SUCESS, USER_CONTACT_LIST, CHANGE_MESSAGE, USER_CHAT_LIST, SEND_MESSAGE_SUCESS } from './Types'
 
 const addContactError = (erro, dispatch) => (
   dispatch(
@@ -68,7 +68,7 @@ export const sendMessage = (mensagem, contactName, contactEmail) => {
       .then(() => {
         firebase.database().ref(`/mensagens/${contactEmailB64}/${userEmailB64}`)
           .push({ mensagem, tipo: 'Recebida' })
-          .then(() => dispatch({ type: 'xyz' }))
+          .then(() => dispatch({ type: SEND_MESSAGE_SUCESS }))
       })
       .then(() => {
         firebase.database().ref(`/usuario_conversas/${userEmailB64}/${contactEmailB64}`)

@@ -1,4 +1,4 @@
-import { CHANGE_EMAIL_ADD_CONTACT, ADD_CONTACT_ERROR, ADD_CONTACT_SUCESS, CHANGE_MESSAGE } from '../actions/Types'
+import { CHANGE_EMAIL_ADD_CONTACT, ADD_CONTACT_ERROR, ADD_CONTACT_SUCESS, CHANGE_MESSAGE, SEND_MESSAGE_SUCESS } from '../actions/Types'
 
 const INITIAL_STATE = {
   add_email_contact: '',
@@ -17,6 +17,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, register_result_include: action.payload, add_email_contact: '' }
     case CHANGE_MESSAGE:
       return { ...state, mensagem: action.payload }
+    case SEND_MESSAGE_SUCESS:
+      return { ...state, mensagem: '' }
     default:
       return state
   }
