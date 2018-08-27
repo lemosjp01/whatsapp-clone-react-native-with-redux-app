@@ -1,7 +1,7 @@
 import firebase from 'firebase'
 import b64 from 'base-64'
 import _ from 'lodash'
-import { CHANGE_EMAIL_ADD_CONTACT, ADD_CONTACT_ERROR, ADD_CONTACT_SUCESS, USER_CONTACT_LIST } from './Types'
+import { CHANGE_EMAIL_ADD_CONTACT, ADD_CONTACT_ERROR, ADD_CONTACT_SUCESS, USER_CONTACT_LIST, CHANGE_MESSAGE } from './Types'
 
 const addContactError = (erro, dispatch) => (
   dispatch(
@@ -44,6 +44,22 @@ export const fetchUserContacts = () => {
         )
       })
   }
+}
+
+export const changeMessage = textMessage => {
+  return ({
+    type: CHANGE_MESSAGE,
+    payload: textMessage
+  })
+}
+
+export const sendMessage = (message, contactName, contactEmail) => {
+  alert(message)
+  alert(contactName)
+  alert(contactEmail)
+  return ({
+    type: 'xyz'
+  })
 }
 
 export const changeEmailAddContact = text => {

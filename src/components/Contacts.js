@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, ListView } from 'react-native'
+import { View, Text, ListView, TouchableHighlight } from 'react-native'
 import { connect } from 'react-redux'
 import _ from 'lodash'
+import { Actions } from 'react-native-router-flux'
 import { fetchUserContacts } from '../actions/AppActions'
 
 class Contacts extends Component {
@@ -15,22 +16,38 @@ class Contacts extends Component {
   }
 
   createDataSource (contacts) {
-    const ds = new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 })
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    })
 
     this.localDataSource = ds.cloneWithRows(contacts)
   }
 
+  renderRow (contact) {
+    return (
+      <TouchableHighlight onPress={ () => Actions.chat({ title: contact.nome, contactName: contact.nome, contactEmail: contact.email }) } underlayColor='#114d44' >
+        <View
+          style={{
+            flex: 1,
+            padding: 20,
+            borderBottomWidth: 1,
+            borderColor: '#ccc'
+          }}
+        >
+          <Text style={{ fontSize: 25 }}>{contact.nome}</Text>
+          <Text style={{ fontSize: 18 }}>{contact.email}</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+
   render () {
     return (
-      <ListView enableEmptySections
+      <ListView
+        enableEmptySections
         dataSource={this.localDataSource}
-        renderRow={data => (
-            <View>
-                <Text>{data.nome}</Text>
-                <Text>{data.email}</Text>
-            </View>
-            )
-        } />
+        renderRow={this.renderRow}
+      />
     )
   }
 }
@@ -42,4 +59,7 @@ const mapStateToProps = state => {
   return { contacts }
 }
 
-export default connect(mapStateToProps, {fetchUserContacts})(Contacts)
+export default connect(
+  mapStateToProps,
+  { fetchUserContacts }
+)(Contacts)
