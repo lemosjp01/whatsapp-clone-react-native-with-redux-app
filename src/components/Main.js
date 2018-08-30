@@ -1,16 +1,10 @@
 import * as React from 'react'
-import { View, StyleSheet, Dimensions } from 'react-native'
+import { Dimensions } from 'react-native'
 import { TabView, SceneMap } from 'react-native-tab-view'
 import TabBarMenu from './TabBarMenu'
 import Chats from './Chats'
 import Contacts from './Contacts'
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    }
-})
- 
 export default class Main extends React.Component {
   state = {
     index: 0,

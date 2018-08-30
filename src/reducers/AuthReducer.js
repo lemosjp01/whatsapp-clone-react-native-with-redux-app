@@ -1,4 +1,4 @@
-import { CHANGE_MAIL, CHANGE_NAME, CHANGE_PASSWORD, USER_REGISTER_SUCCESS, USER_REGISTER_ERROR, LOGIN_IN_PROCESS, USER_LOGIN_ERROR, REGISTER_IN_PROCESS } from '../actions/Types'
+import { CHANGE_MAIL, CHANGE_NAME, CHANGE_PASSWORD, USER_REGISTER_SUCCESS, USER_REGISTER_ERROR, LOGIN_IN_PROCESS, USER_LOGIN_ERROR, REGISTER_IN_PROCESS, USER_LOGIN_SUCESS } from '../actions/Types'
 
 const INITIAL_STATE = {
   nome: '',
@@ -24,6 +24,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, nome: '', senha: '', loading_register: false }
     case USER_LOGIN_ERROR:
       return { ...state, loginError: action.payload, loading_login: false }
+    case USER_LOGIN_SUCESS:
+      return { ...state, ...INITIAL_STATE }
     case LOGIN_IN_PROCESS:
       return { ...state, loading_login: true }
     case REGISTER_IN_PROCESS:

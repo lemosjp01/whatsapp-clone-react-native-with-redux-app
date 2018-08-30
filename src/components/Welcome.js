@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, Button, Image, ImageBackground } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import React from 'react'
+import { View, Text, Button, Image, ImageBackground } from 'react-native'
+import { Actions } from 'react-native-router-flux'
 
 export default props => (
     <ImageBackground
@@ -17,4 +17,4 @@ export default props => (
             </View>
         </View>
     </ImageBackground>
-);
+)
